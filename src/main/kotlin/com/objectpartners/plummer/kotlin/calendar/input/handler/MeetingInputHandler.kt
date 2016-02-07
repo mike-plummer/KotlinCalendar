@@ -5,9 +5,7 @@ import java.util.*
 
 
 class MeetingInputHandler: CalendarEntryInputHandler<Meeting>() {
-    override fun type(): String {
-        return "Appointment"
-    }
+    override final val type: String = "Meeting"
 
     override fun buildInstance(): Meeting {
         return Meeting()
@@ -15,14 +13,14 @@ class MeetingInputHandler: CalendarEntryInputHandler<Meeting>() {
 
     override fun handle(): Meeting {
         val meeting: Meeting = super.handle()
+        val input: Scanner = Scanner(System.`in`)
         while (true) {
-            println("Add attendee ('Done' when finished):  ")
-            val input: Scanner = Scanner(System.`in`)
+            println("Add attendee ('Done' when finished): ")
             val attendeeName = input.nextLine()
             if ("Done".equals(attendeeName, true)) {
                 break;
             }
-            meeting.attendees += input.nextLine()
+            meeting.attendees += attendeeName
             println("Added $attendeeName to meeting")
         }
         return meeting

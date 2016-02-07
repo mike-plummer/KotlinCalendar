@@ -1,7 +1,9 @@
 package com.objectpartners.plummer.kotlin.calendar
 
+import com.objectpartners.plummer.kotlin.calendar.entry.CalendarEntry
 import com.objectpartners.plummer.kotlin.calendar.input.Command
 import com.objectpartners.plummer.kotlin.calendar.input.handler.AppointmentInputHandler
+import com.objectpartners.plummer.kotlin.calendar.input.handler.CalendarEntryInputHandler
 import com.objectpartners.plummer.kotlin.calendar.input.handler.MeetingInputHandler
 import java.util.*
 
@@ -18,18 +20,19 @@ fun main(args: Array<String>) {
             when (command) {
                 Command.CREATE -> {
                     println("(A)ppointment or (M)eeting? ")
+                    val handler: CalendarEntryInputHandler<CalendarEntry>
                     when (input.nextLine()) {
-                        "a", "A", "Appointment" -> {
-                            calendar.entries += AppointmentInputHandler().handle()
-                        }
-                        "m", "M", "Meeting" -> {
-                            calendar.entries += MeetingInputHandler().handle()
-                        }
+                        "a", "A", "Appointment" -> handler = AppointmentInputHandler()
+                        "m", "M", "Meeting" -> handler = MeetingInputHandler()
+
+                        else -> throw IllegalArgumentException("Invalid choice")
                     }
+                    calendar.entries += handler.handle()
+                    println("${handler.type} added.")
                 }
                 Command.DELETE -> {
                     val idToDelete = input.nextLine()
-                    calendar.entries.removeAll { it.getId() == idToDelete }
+                    calendar.entries.removeAll { it.id == idToDelete }
                 }
                 Command.LIST -> {
                     println("Calendar entries\n----------------")

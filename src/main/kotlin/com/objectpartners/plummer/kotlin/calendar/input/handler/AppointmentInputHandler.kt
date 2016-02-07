@@ -5,9 +5,7 @@ import java.util.*
 
 
 class AppointmentInputHandler: CalendarEntryInputHandler<Appointment>() {
-    override fun type(): String {
-        return "Appointment"
-    }
+    override final val type: String = "Appointment"
 
     override fun buildInstance(): Appointment {
         return Appointment()
@@ -17,7 +15,7 @@ class AppointmentInputHandler: CalendarEntryInputHandler<Appointment>() {
         val appointment: Appointment = super.handle()
         println("Private? ")
         val input: Scanner = Scanner(System.`in`)
-        appointment.privateAppointment = input.nextLine().toBoolean()
+        appointment.privateAppointment = input.nextBoolean()
         return appointment
     }
 }

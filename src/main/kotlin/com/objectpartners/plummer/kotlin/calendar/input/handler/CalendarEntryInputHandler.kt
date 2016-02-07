@@ -7,16 +7,18 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-abstract class CalendarEntryInputHandler<T: CalendarEntry>: InputHandler<CalendarEntry> {
-    final val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+abstract class CalendarEntryInputHandler<out T: CalendarEntry>: InputHandler<CalendarEntry> {
+
+    abstract val type: String
 
     override fun handle(): T {
         val input = Scanner(System.`in`)
-        println(type() + " entry")
-        println("Start time (YYYY MM DD HH:mm:ss): ")
-        val dttmTokens = input.nextLine().split(" ")
-        val timeTokens = dttmTokens[3].split(":")
-        val start = LocalDateTime.of(dttmTokens[0].toInt(), dttmTokens[1].toInt(), dttmTokens[2].toInt(), timeTokens[0].toInt(), timeTokens[1].toInt(), timeTokens[2].toInt(), 0)
+        println("$type entry")
+        val pattern = "yyyy-MM-d HH:mm:ss"
+        val formatter = DateTimeFormatter.ofPattern(pattern);
+
+        println("Start time ($pattern): ")
+        val start = LocalDateTime.from(formatter.parse(input.nextLine()))
         println("Duration (HH:mm:ss): ")
         val durationTokens: List<String> = input.nextLine().split(":")
         val duration = Duration.ofHours(durationTokens[0].toLong()).plusMinutes(durationTokens[1].toLong()).plusSeconds(durationTokens[2].toLong())
@@ -26,8 +28,6 @@ abstract class CalendarEntryInputHandler<T: CalendarEntry>: InputHandler<Calenda
         entry.duration = duration
         return entry
     }
-
-    abstract fun type(): String
 
     abstract fun buildInstance() : T
 }
