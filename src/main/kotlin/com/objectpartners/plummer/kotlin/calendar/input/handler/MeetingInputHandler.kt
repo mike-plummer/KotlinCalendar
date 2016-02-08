@@ -14,15 +14,18 @@ class MeetingInputHandler: CalendarEntryInputHandler<Meeting>() {
     override fun handle(): Meeting {
         val meeting: Meeting = super.handle()
         val input: Scanner = Scanner(System.`in`)
-        while (true) {
-            println("Add attendee ('Done' when finished): ")
+        attendeeLoop@ do {
+            print("\tAdd attendee ('Done' when finished): ")
             val attendeeName = input.nextLine()
-            if ("Done".equals(attendeeName, true)) {
-                break;
+            when (attendeeName) {
+                "DONE", "Done", "done" -> break@attendeeLoop;
+                in meeting.attendees -> println("\t\t$attendeeName is already attending this meeting!")
+                else -> {
+                    meeting.attendees += attendeeName
+                    println("\t\tAdded $attendeeName to meeting")
+                }
             }
-            meeting.attendees += attendeeName
-            println("Added $attendeeName to meeting")
-        }
+        } while (true)
         return meeting
     }
 }

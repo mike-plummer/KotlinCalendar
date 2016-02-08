@@ -8,38 +8,40 @@ import com.objectpartners.plummer.kotlin.calendar.input.handler.MeetingInputHand
 import java.util.*
 
 fun main(args: Array<String>) {
-    println("Hello world")
 
     val calendar = Calendar()
     val commands = Command.values().map { it.name }.joinToString() { it }
     val input = Scanner(System.`in`)
     executionLoop@ while (true) {
         try {
-            println("Command ($commands): ")
-            val command = Command.valueOf(input.nextLine())
-            when (command) {
+            print("Command ($commands): ")
+            when (Command.valueOf(input.nextLine().toUpperCase())) {
                 Command.CREATE -> {
-                    println("(A)ppointment or (M)eeting? ")
+                    print("(A)ppointment or (M)eeting? ")
                     val handler: CalendarEntryInputHandler<CalendarEntry>
-                    when (input.nextLine()) {
-                        "a", "A", "Appointment" -> handler = AppointmentInputHandler()
-                        "m", "M", "Meeting" -> handler = MeetingInputHandler()
-
+                    when (input.nextLine().toLowerCase()) {
+                        "a", "appointment" -> handler = AppointmentInputHandler()
+                        "m", "meeting" -> handler = MeetingInputHandler()
                         else -> throw IllegalArgumentException("Invalid choice")
                     }
                     calendar.entries += handler.handle()
                     println("${handler.type} added.")
                 }
                 Command.DELETE -> {
+                    print("ID to delete: ")
                     val idToDelete = input.nextLine()
                     calendar.entries.removeAll { it.id == idToDelete }
                 }
                 Command.LIST -> {
-                    println("Calendar entries\n----------------")
-                    println()
+                    println("""
+----------------------
+-- Calendar entries --
+----------------------
+""")
                     calendar.entries.forEach { println(it) }
                 }
                 Command.EXIT -> {
+                    println("Goodbye!")
                     break@executionLoop
                 }
             }

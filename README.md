@@ -4,4 +4,11 @@ Implementation of a personal calendar as a demonstration of Kotlin grammar and f
 **_Note:_** This is still a work in progress.
 
 ## Setup
-This project relies on a Kotlin runtime. There are plugins for IntelliJ and Eclipse or you can just get the command-line version. All of these are available at [KotlinLang.org](https://kotlinlang.org).
+The preferred method for running this project is Gradle. Just run `gradle` from project root which will by default compile and launch the main class
+
+There are several other options available to you if you prefer to not use Gradle:
+ * IntelliJ
+ * Eclipse
+ * Command Line
+
+Information and downloads for these are available @ [kotlinlang.org](https://kotlinlang.org).

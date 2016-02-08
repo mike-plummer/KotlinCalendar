@@ -11,22 +11,33 @@ abstract class CalendarEntryInputHandler<out T: CalendarEntry>: InputHandler<Cal
 
     abstract val type: String
 
+    private final val pattern: String = "yyyy-MM-dd HH:mm:ss";
+    private final val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(pattern)
+
+    /**
+     * Extension function - this adds a new function to Duration objects without having to subclass Duration
+     */
+    fun Duration.parseHMS(value: String): Duration {
+        val durationTokens: List<String> = value.split(":")
+        return this.plusHours(durationTokens[0].toLong())
+                   .plusMinutes(durationTokens[1].toLong())
+                   .plusSeconds(durationTokens[2].toLong())
+    }
+
     override fun handle(): T {
         val input = Scanner(System.`in`)
-        println("$type entry")
-        val pattern = "yyyy-MM-d HH:mm:ss"
-        val formatter = DateTimeFormatter.ofPattern(pattern);
+        println("-- $type entry --")
 
-        println("Start time ($pattern): ")
-        val start = LocalDateTime.from(formatter.parse(input.nextLine()))
-        println("Duration (HH:mm:ss): ")
-        val durationTokens: List<String> = input.nextLine().split(":")
-        val duration = Duration.ofHours(durationTokens[0].toLong()).plusMinutes(durationTokens[1].toLong()).plusSeconds(durationTokens[2].toLong())
+        print("\tStart time ($pattern): ")
+        val startString = input.nextLine()
+        val start = if (startString.isBlank()) LocalDateTime.now() else LocalDateTime.from(formatter.parse(startString))
+
+        print("\tDuration (HH:mm:ss): ")
+        val duration = Duration.ZERO.parseHMS(input.nextLine())
 
         val entry: T = buildInstance()
-        entry.start = start
-        entry.duration = duration
-        return entry
+        return entry.apply { this.start = start
+                             this.duration = duration }
     }
 
     abstract fun buildInstance() : T

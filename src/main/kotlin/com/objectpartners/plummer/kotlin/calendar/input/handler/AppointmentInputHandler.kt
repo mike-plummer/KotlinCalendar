@@ -13,7 +13,7 @@ class AppointmentInputHandler: CalendarEntryInputHandler<Appointment>() {
 
     override fun handle(): Appointment {
         val appointment: Appointment = super.handle()
-        println("Private? ")
+        print("\tPrivate? ")
         val input: Scanner = Scanner(System.`in`)
         appointment.privateAppointment = input.nextBoolean()
         return appointment
