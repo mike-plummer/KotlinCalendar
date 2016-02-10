@@ -33,6 +33,9 @@ fun main(args: Array<String>) {
                     val idToDelete = source.readLine()
                     calendar.entries.removeAll { it.id == idToDelete }
                 }
+                Command.INFO -> {
+                    println(Calendar.info())
+                }
                 Command.LIST -> {
                     println("""
 ----------------------
@@ -40,6 +43,7 @@ fun main(args: Array<String>) {
 ----------------------
 """)
                     calendar.entries.forEach { println(it) }
+                    println("----------------------")
                 }
                 Command.EXIT -> {
                     println("Goodbye!")
