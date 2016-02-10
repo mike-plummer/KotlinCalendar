@@ -1,7 +1,6 @@
 package com.objectpartners.plummer.kotlin.calendar.entry
 
 import java.time.LocalDateTime
-import java.util.*
 
 
 data class Appointment( override var start: LocalDateTime? = LocalDateTime.now(),

@@ -1,21 +1,20 @@
 package com.objectpartners.plummer.kotlin.calendar.input.handler
 
 import com.objectpartners.plummer.kotlin.calendar.entry.Appointment
-import java.util.*
+import java.io.BufferedReader
 
 
-class AppointmentInputHandler: CalendarEntryInputHandler<Appointment>() {
+class AppointmentInputHandler(): CalendarEntryInputHandler<Appointment>() {
     override final val type: String = "Appointment"
 
     override fun buildInstance(): Appointment {
         return Appointment()
     }
 
-    override fun handle(): Appointment {
-        val appointment: Appointment = super.handle()
+    override fun handle(source: BufferedReader): Appointment {
+        val appointment: Appointment = super.handle(source)
         print("\tPrivate? ")
-        val input: Scanner = Scanner(System.`in`)
-        appointment.privateAppointment = input.nextBoolean()
+        appointment.privateAppointment = source.readLine().toBoolean()
         return appointment
     }
 }

@@ -17,16 +17,23 @@ mainClassName = 'com.objectpartners.plummer.kotlin.calendar.KotlinCalendarKt'
 defaultTasks 'run'
 
 run {
+    // Since the application relies on System.in we have to explicitly configure
+    // Gradle to direct that stream into the launched application
     standardInput = System.in
 }
 
 repositories {
     mavenCentral()
+    maven {
+        url "http://repository.jetbrains.com/all"
+    }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testCompile 'org.jetbrains.spek:spek:0.1.194'
 }
+
 sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
 }

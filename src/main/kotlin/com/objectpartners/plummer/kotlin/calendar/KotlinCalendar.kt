@@ -5,31 +5,32 @@ import com.objectpartners.plummer.kotlin.calendar.input.Command
 import com.objectpartners.plummer.kotlin.calendar.input.handler.AppointmentInputHandler
 import com.objectpartners.plummer.kotlin.calendar.input.handler.CalendarEntryInputHandler
 import com.objectpartners.plummer.kotlin.calendar.input.handler.MeetingInputHandler
-import java.util.*
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 fun main(args: Array<String>) {
 
     val calendar = Calendar()
     val commands = Command.values().map { it.name }.joinToString() { it }
-    val input = Scanner(System.`in`)
+    val source = BufferedReader(InputStreamReader(System.`in`))
     executionLoop@ while (true) {
         try {
             print("Command ($commands): ")
-            when (Command.valueOf(input.nextLine().toUpperCase())) {
+            when (Command.valueOf(source.readLine().toUpperCase())) {
                 Command.CREATE -> {
                     print("(A)ppointment or (M)eeting? ")
                     val handler: CalendarEntryInputHandler<CalendarEntry>
-                    when (input.nextLine().toLowerCase()) {
+                    when (source.readLine().toLowerCase()) {
                         "a", "appointment" -> handler = AppointmentInputHandler()
                         "m", "meeting" -> handler = MeetingInputHandler()
                         else -> throw IllegalArgumentException("Invalid choice")
                     }
-                    calendar.entries += handler.handle()
+                    calendar.entries += handler.handle(source)
                     println("${handler.type} added.")
                 }
                 Command.DELETE -> {
                     print("ID to delete: ")
-                    val idToDelete = input.nextLine()
+                    val idToDelete = source.readLine()
                     calendar.entries.removeAll { it.id == idToDelete }
                 }
                 Command.LIST -> {
