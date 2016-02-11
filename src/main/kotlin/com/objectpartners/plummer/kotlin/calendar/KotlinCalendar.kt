@@ -11,7 +11,9 @@ import java.io.InputStreamReader
 fun main(args: Array<String>) {
 
     val calendar = Calendar()
+    // Build a comma-separated list of supported commands the user can input
     val commands = Command.values().map { it.name }.joinToString() { it }
+    // Build an input source based on System.in
     val source = BufferedReader(InputStreamReader(System.`in`))
     executionLoop@ while (true) {
         try {

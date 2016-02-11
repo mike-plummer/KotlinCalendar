@@ -3,7 +3,9 @@ package com.objectpartners.plummer.kotlin.calendar
 import com.objectpartners.plummer.kotlin.calendar.entry.CalendarEntry
 import java.util.*
 
-
+/**
+ * Manages a collection of [CalendarEntry].
+ */
 class Calendar {
 
     companion object Info {

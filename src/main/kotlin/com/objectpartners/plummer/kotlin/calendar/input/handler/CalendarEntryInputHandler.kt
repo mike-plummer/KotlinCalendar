@@ -17,17 +17,23 @@ abstract class CalendarEntryInputHandler<out T: CalendarEntry>(): InputHandler<C
     override fun handle(source: BufferedReader): T {
         println("-- $type entry --")
 
+        // Read a dttm from the source, if none found then use current dttm
         print("\tStart time ($pattern): ")
         val startString = source.readLine()
         val start = if (startString.isBlank()) LocalDateTime.now() else LocalDateTime.from(formatter.parse(startString))
 
+        // Parse hours, minutes, and seconds from the source
         print("\tDuration (HH:mm:ss): ")
         val duration = Duration.ZERO.parseHMS(source.readLine())
 
+        // Build object and populate
         val entry: T = buildInstance()
         return entry.apply { this.start = start
                              this.duration = duration }
     }
 
+    /**
+     * Construct a new instance of the type of [CalendarEntry] this handler manages ([T]).
+     */
     abstract fun buildInstance() : T
 }

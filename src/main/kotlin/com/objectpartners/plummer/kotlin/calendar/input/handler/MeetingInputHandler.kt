@@ -13,6 +13,7 @@ class MeetingInputHandler(): CalendarEntryInputHandler<Meeting>() {
 
     override fun handle(source: BufferedReader): Meeting {
         val meeting: Meeting = super.handle(source)
+        // Until the user enters 'Done' read lines and store as attendees
         attendeeLoop@ do {
             print("\tAdd attendee ('Done' when finished): ")
             val attendeeName = source.readLine()
