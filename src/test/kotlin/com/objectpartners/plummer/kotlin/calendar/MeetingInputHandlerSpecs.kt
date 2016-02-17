@@ -2,13 +2,13 @@ package com.objectpartners.plummer.kotlin.calendar
 
 import com.objectpartners.plummer.kotlin.calendar.entry.Meeting
 import com.objectpartners.plummer.kotlin.calendar.input.handler.MeetingInputHandler
+import org.jetbrains.spek.api.shouldBeTrue
+import org.jetbrains.spek.api.shouldEqual
+import org.jetbrains.spek.api.shouldNotBeNull
 import java.io.BufferedReader
 import java.io.StringReader
 import java.time.Duration
 import java.time.temporal.ChronoUnit
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
 
 class MeetingInputHandlerSpecs : CalendarEntryHandlerSpecs<Meeting, MeetingInputHandler>() {
@@ -24,9 +24,9 @@ class MeetingInputHandlerSpecs : CalendarEntryHandlerSpecs<Meeting, MeetingInput
                 val source = BufferedReader(StringReader("\r\n01:00:00\r\nJoe\r\nDone\r\n"))
                 it("should succeed") {
                     val meeting = handler.handle(source)
-                    assertNotNull(meeting)
-                    assertTrue(meeting.duration == Duration.of(1, ChronoUnit.HOURS))
-                    assertEquals(meeting.attendees.size, 1)
+                    shouldNotBeNull(meeting)
+                    shouldBeTrue(meeting.duration == Duration.of(1, ChronoUnit.HOURS))
+                    shouldEqual(meeting.attendees.size, 1)
                 }
             }
         }

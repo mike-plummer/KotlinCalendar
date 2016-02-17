@@ -12,12 +12,15 @@ fun main(args: Array<String>) {
 
     val calendar = Calendar()
     // Build a comma-separated list of supported commands the user can input
+    // Lambdas use the implicit arg name 'it' like in Groovy but this can be overridden with 'x ->' syntax
     val commands = Command.values().map { it.name }.joinToString() { it }
     // Build an input source based on System.in
     val source = BufferedReader(InputStreamReader(System.`in`))
+    // So long as the user doesn't input the EXIT command...
     executionLoop@ while (true) {
         try {
             print("Command ($commands): ")
+            // Analogue to the C/Java 'switch' statement, but less terrible
             when (Command.valueOf(source.readLine().toUpperCase())) {
                 Command.CREATE -> {
                     print("(A)ppointment or (M)eeting? ")
@@ -27,6 +30,8 @@ fun main(args: Array<String>) {
                         "m", "meeting" -> handler = MeetingInputHandler()
                         else -> throw IllegalArgumentException("Invalid choice")
                     }
+                    // Build new calendar entry using the appropriate handler instance
+                    // Add to a collection using one of operators Collection overrides
                     calendar.entries += handler.handle(source)
                     println("${handler.type} added.")
                 }
@@ -39,6 +44,8 @@ fun main(args: Array<String>) {
                     println(Calendar.info())
                 }
                 Command.LIST -> {
+                    // Print a multi-line string - note that formatting is included EXACTLY as it is here so any identing
+                    // will result in extra spaces in your string
                     println("""
 ----------------------
 -- Calendar entries --

@@ -20,6 +20,7 @@ abstract class CalendarEntryInputHandler<out T: CalendarEntry>(): InputHandler<C
         // Read a dttm from the source, if none found then use current dttm
         print("\tStart time ($pattern): ")
         val startString = source.readLine()
+        // Kotlin has no ternary operator so we use a succinct if-else instead
         val start = if (startString.isBlank()) LocalDateTime.now() else LocalDateTime.from(formatter.parse(startString))
 
         // Parse hours, minutes, and seconds from the source

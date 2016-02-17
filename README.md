@@ -1,7 +1,5 @@
-# KotlinCalendar
+# Kotlin Calendar
 Implementation of a personal calendar as a demonstration of Kotlin grammar and features
-
-**_Note:_** This is still a work in progress.
 
 ## Kotlin Overview
 Kotlin is (yet another) JVM language but with a unique set of features that will appeal to many developers. Kotlin is similar in many ways to Groovy in that Kotlin code can use Java and be used by Java which makes it easy to integrate and gives you the power of the expansive set of Java frameworks and libraries out there.
@@ -24,7 +22,8 @@ There are several other options available to you if you prefer to not use Gradle
 
 Information and downloads for these are available @ [kotlinlang.org](https://kotlinlang.org).
 
+## Overview
+To run, execute the main function in KotlinCalendar.kt. The console will prompt for commands to allow to you create, delete, and list calendar data as well as exit the program.
+
 ## Tests
 A variety of unit tests have been written using [Spek](https://jetbrains.github.io/spek/), a unit testing framework that is 100% Kotlin-based. For those who have worked with Spock or Mocha it will be very familiar - tests are broken down into a series of nested "given-on-it" clauses to help semantically structure your tests and encourage targeted, readable tests.
-
-In my experience thus far Spek is pretty great but it still has a ways to go. The IntelliJ support is a little buggy, code coverage doesn't seem to work yet, and it doesn't yet have the feature-set to supplant JUnit & Hamcrest's Matchers

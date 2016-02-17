@@ -8,6 +8,7 @@ import java.util.*
  */
 class Calendar {
 
+    // Use a companion object to give Calendar a 'static' method of 'Info'
     companion object Info {
         @JvmStatic
         fun info(): String {
@@ -18,5 +19,7 @@ Simple implementation of a Calendar that allows creating, displaying, and deleti
 """
         }
     }
+
+    // Define a collection that cannot be replaced but allows its contents to be modified
     val entries: MutableCollection<CalendarEntry> = HashSet();
 }
