@@ -22,7 +22,7 @@ There are several other options available to you if you prefer to not use Gradle
 
 Information and downloads for these are available @ [kotlinlang.org](https://kotlinlang.org).
 
-## Overview
+## Instructions
 To run, execute the main function in KotlinCalendar.kt. The console will prompt for commands to allow to you create, delete, and list calendar data as well as exit the program.
 
 ## Tests
