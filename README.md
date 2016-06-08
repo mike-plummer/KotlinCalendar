@@ -1,6 +1,8 @@
 # Kotlin Calendar
 Implementation of a personal calendar as a demonstration of Kotlin grammar and features
 
+There's a [blog post](https://objectpartners.com/2016/02/23/an-introduction-to-kotlin/) that walks through my impressions of Kotlin coming from a Java background.
+
 ## Kotlin Overview
 Kotlin is (yet another) JVM language but with a unique set of features that will appeal to many developers. Kotlin is similar in many ways to Groovy in that Kotlin code can use Java and be used by Java which makes it easy to integrate and gives you the power of the expansive set of Java frameworks and libraries out there.
 
